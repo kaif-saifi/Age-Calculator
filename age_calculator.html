@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+</head>
+<style>
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    .container{
+        height:500px;
+        background:url('https://images.unsplash.com/photo-1525838983331-f8bd3c000585?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGNhbG18ZW58MHx8MHx8fDA%3D') ;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    }
+    .container{
+padding: 130px 0px 0px 90px;
+font-family: sans-serif;
+
+    }
+    .container h1{
+        font-size: 58px;
+        margin: 10px;
+        
+        background: linear-gradient(to right, #1d1324,#6a203f, #8d7f08);
+               -webkit-text-fill-color: transparent;
+    text:transparent;
+    }
+    .input h4{
+        font-size: 30px;
+        margin: 40px 0px 40px 0px;
+        color: #cbbdc7;
+        background: linear-gradient(to right, #1d1324,#6a203f, #8d7f08);
+               -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    }
+    .input input{
+        height: 47px;
+        width: 221px;
+        border: 2px ;
+        border-radius: 5px;
+        margin: 10px 10px 10px 0px;
+        background-color: #d3838d;
+         text-align: center;
+         font-family: sans-serif;
+         font-size: 18px;
+        color: black;
+    }
+    .input button{
+        height:50px ;
+        width: 90px;
+        padding: 13px 10px 10px 10px;
+        border: 0px solid rgb(242, 252, 252);
+        background-color: antiquewhite;
+        border-radius: 5px;
+        margin: 10px 0px 0px 10px;
+         background-color: #cbbdc7;
+         font-size: 18px;
+        color: black;
+        box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background-color: #d3838d;
+        font-family:Arial, Helvetica, sans-serif;
+
+               
+    }
+    button:hover{
+opacity: 0.6;
+        border-radius: 10px;
+    }
+    
+    input:hover{
+opacity: 0.6;
+        border-radius: 10px;
+    }
+    .card{
+      padding: 14px;
+    }
+    .card h4{
+        font-size: 20px;
+        font-family: sans-serif;
+        color: #e7babf;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>Age Calculator</h1>
+          <div class="input">
+             <h4>Enter your Birth Date</h4>
+             <div class="dates">
+                <input type="date" id="date">
+               <button class="btn" id="submit_btn" onclick="calculate_age()">Submit</button>
+</div>
+    </div>
+    <div class="card">
+    
+    </div>
+</div>
+
+    <script>
+        const birthDate = document.getElementById('date');
+        birthDate.max = new Date().toISOString().split("T")[0];
+        const button = document.getElementById('submit_btn');
+        const card = document.querySelector('.card')
+
+        function calculate_age() {
+            var today = new Date();
+            var birth = new Date(birthDate.value);
+            var d1 = birth.getDate();
+            var m1 = birth.getMonth() + 1;
+            var y1 = birth.getFullYear();
+            var m2 = today.getMonth() + 1;
+            var y2 = today.getFullYear();
+            var d2 = today.getDate();
+
+            var d3, m3, y3;
+            if(y1>y2){
+                card.innerHTML=`<h4> Enter Valid Birth Date.`
+            }
+            //year calculating 
+            y3 = y2 - y1;
+            //month calculating
+
+            if (m2 >= m1) {
+                m3 = m2 - m1;
+            }
+            else {
+                y3--;
+                m3 = 12 + m2 - m1;
+            }
+
+            //calculating days 
+            if (d2 > d1) {
+               var d3 = d2 - d1;
+            }
+            else {
+                m3--;
+                d3  = getDaydInMonth(y1, m1) + d2 - d1;
+            }
+
+            // in the above step we have decremented a year suppose m3=0; and after this step m3=-1; to deal with this situation
+            if (m3 < 0) {
+                m3 = 11;
+                y3--;
+            }
+
+
+            card.innerHTML = `<h4>You are  ${y3} years , ${m3} months , ${d3} days old. </h4>`
+
+
+        }
+        function getDaydInMonth(year, month) {
+            var return_date = new Date(year, month, 0);
+            return (return_date.getDate());
+        }
+
+
+    </script>
+</body>
+
+</html>
